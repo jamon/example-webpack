@@ -3,11 +3,12 @@ var conf = JSON.parse(require('fs').readFileSync('package.json'));
 
 module.exports = {
     context: __dirname + '/src',
-    entry: './index.js',
+    entry: './index.js', // { main: ['./index.js', 'lib/react-with-addons']},
     output: {
-        library: "require", //_" + conf.name,
-        libraryTarget: "this",
-        path: __dirname + '/public'
+        library: conf.name,
+        libraryTarget: "amd",
+        path: __dirname + '/public',
+        sourceMapFilename: "[file].map"
     },
     module: {
         loaders: [{
@@ -16,7 +17,7 @@ module.exports = {
         }]
     },
     externals: {
-        'react': "React"
+         'lib/react': "amd ./lib/react-with-addons"
     },
     devServer: {
         contentBase: './public',
@@ -25,10 +26,15 @@ module.exports = {
                 path: /test(.*)/,
                 target: "http://127.0.0.1:8282/"
             }
-        ]
+        ],
+        stats: {
+            colors: true
+        }
     },
     plugins: [
-        new webpack.OldWatchingPlugin(),
-        new webpack.optimize.UglifyJsPlugin()
-    ]
+        new webpack.OldWatchingPlugin()
+        //new webpack.optimize.UglifyJsPlugin()
+    ],
+    debug: true,
+    devtool: 'source-map'
 };
