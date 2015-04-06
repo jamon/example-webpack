@@ -1,0 +1,24 @@
+{
+  "name": "example",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": " ",
+  "devDependencies": {
+    "jsx-loader": "^0.13.1",
+    "react-tools": "^0.13.1",
+    "webpack": "^1.7.3",
+    "webpack-dev-server": "git+https://github.com/jamon/webpack-dev-server.git#installable"
+  },
+  "dependencies": {
+    "react": "^0.13.1"
+  },
+  "jshintConfig": {
+    "esnext": true
+  }
+}
