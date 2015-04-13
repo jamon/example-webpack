@@ -1,5 +1,5 @@
 // entry point
-define(['external/react', './message'], function(React, Message) {
+define(['external/react', './message', './model/message'], function(React, Message, MessageModel) {
     return React.createClass({
         displayName: 'example/test',
         getInitialState: function() {
@@ -9,17 +9,9 @@ define(['external/react', './message'], function(React, Message) {
             };
         },
         componentDidMount: function() {
-            // @TODO use a model class
-            var that = this;
-            var req = new XMLHttpRequest();
-            req.onload = function() {
-                var response = JSON.parse(this.responseText);
-                setTimeout(function() {
-                    that.setState({loading: false, message: response.message});
-                }, 1000);
-            };
-            req.open("get", "/api/example/1/test");
-            req.send();
+            MessageModel.getMessage(function(message) {
+                this.setState({loading: false, message: message});
+            }.bind(this));
         },
         render: function() {
             return <div>
