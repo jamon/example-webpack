@@ -6,8 +6,8 @@
         loading...
     </body>
     <script>
-        require(['index'], function(example) {
-            example.Test(null, document.body);
+        require(['lib/react-with-addons', 'indexreact'], function(React, Example) {
+            React.render(React.createElement(Example.Test, null), document.body);
         });
     </script>
 </html>

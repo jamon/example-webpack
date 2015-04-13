@@ -16,7 +16,13 @@
     "webpack-dev-server": "git+https://github.com/jamon/webpack-dev-server.git#installable"
   },
   "dependencies": {
-    "react": "^0.13.1"
+  },
+  "devServer": {
+    "proxy": {
+      "source": "/api/example/1/(.*)",
+      "target": "http://localhost:8081",
+      "rewrite": "/$1"
+    }
   },
   "jshintConfig": {
     "esnext": true
