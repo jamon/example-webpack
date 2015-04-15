@@ -5,7 +5,9 @@ define([], function() {
         var req = new XMLHttpRequest();
         req.onload = function() {
             var response = JSON.parse(this.responseText);
-            success(response);
+            setTimeout(function() {
+                success(response);
+            }, 1000);
         };
         req.open("get", "/api/example/1/test");
         req.send();

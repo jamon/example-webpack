@@ -1,5 +1,5 @@
 // entry point
-define(['./test', './message'], function(Test, Message) {
+define(['./components/test', './components/message'], function(Test, Message) {
     return {
         Test: Test,
         Message: Message

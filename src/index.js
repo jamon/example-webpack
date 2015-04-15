@@ -1,5 +1,5 @@
 // entry point
-define(['./test', './message', 'external/react'], function(Test, Message, React) {
+define(['./components/test', './components/message', 'external/react'], function(Test, Message, React) {
     return {
         Test: function(props, target) {
             React.render(React.createElement(Test, props), target);

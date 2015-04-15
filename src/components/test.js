@@ -1,22 +1,22 @@
-// entry point
-define(['external/react', './message', './model/message'], function(React, Message, MessageModel) {
+define(['external/react', './message', './loading', '../model/message'], function(React, Message, Loading, MessageModel) {
     return React.createClass({
         displayName: 'example/test',
         getInitialState: function() {
             return {
-                loading: true,
                 message: null
             };
         },
         componentDidMount: function() {
-            MessageModel.getMessage(function(message) {
-                this.setState({loading: false, message: message});
+            MessageModel.getMessage(function(response) {
+                this.setState({message: response.message});
             }.bind(this));
         },
         render: function() {
             return <div>
                 <h1>Hello World</h1>
-                {this.state.loading ? <div>loading...</div> : <Message message={this.state.message} />}
+                <Loading loading={this.state.message === null}>
+                    <Message message={this.state.message} />
+                </Loading>
             </div>;
         }
     });
