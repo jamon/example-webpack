@@ -20,7 +20,8 @@ module.exports = {
     },
     externals: {
          'external/react': "amd react",
-         'external/angular': "amd angular"
+         'external/angular': "amd angular",
+         'external/ngReact': "amd ngReact"
     },
     plugins: [
         new webpack.OldWatchingPlugin(),
