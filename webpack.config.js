@@ -9,7 +9,7 @@ module.exports = {
     output: {
         filename: "[name].js",
         libraryTarget: "amd",
-        path: "/",
+        path: __dirname + "/dist",
         sourceMapFilename: "[file].map"
     },
     module: {
@@ -21,7 +21,8 @@ module.exports = {
     externals: {
          'external/react': "amd react",
          'external/angular': "amd angular",
-         'external/ngReact': "amd ngReact"
+         'external/ngReact': "amd ngReact",
+         'external/react-bootstrap': "amd react-bootstrap",
     },
     plugins: [
         new webpack.OldWatchingPlugin(),

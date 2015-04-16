@@ -1,9 +1,9 @@
 // entry point
-define(['external/react'], function(React) {
+define(['external/react', 'external/react-bootstrap'], function(React, BS) {
     return React.createClass({
         displayName: 'example/message',
         render: function() {
-            return <div>Message: {this.props.message}</div>;
+            return <BS.Alert><strong>Message: </strong>{this.props.message}</BS.Alert>;
         }
     });
 });
