@@ -3,7 +3,7 @@ module.exports = {
     context: __dirname + '/src',
     entry: {
         index: "./index.js",
-        "index-react": "./index-react.js",
+        "index-react": "props-loader!./index.json",
         "index-angular": "./index-angular.js"
     },
     output: {
