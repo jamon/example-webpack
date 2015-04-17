@@ -10,6 +10,7 @@
   "author": "",
   "license": " ",
   "devDependencies": {
+    "change-case": "^2.3.0",
     "http-proxy": "^1.10.1",
     "jsx-loader": "^0.13.1",
     "props-loader": "git://github.com/jamon/props-loader",

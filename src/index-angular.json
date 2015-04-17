@@ -1,0 +1,5 @@
+{
+    "Test": "./components/test",
+    "Message": "./components/message",
+    "Loading": "./components/loading"
+}
