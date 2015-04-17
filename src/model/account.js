@@ -1,8 +1,6 @@
 define([], function() {
     var Model = function() {};
 
-
-
     Model.prototype.getAccount = function(success) {
         var req = new XMLHttpRequest();
         req.onload = function() {
