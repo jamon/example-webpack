@@ -1,6 +1,6 @@
 define(['external/react'], function(React) {
     return React.createClass({
-        displayName: 'example/loading',
+        displayName: 'account/loading',
         render: function() {
             var loadingStyle = {
                 display: this.props.loading ? "block" : "none"
@@ -10,7 +10,7 @@ define(['external/react'], function(React) {
             };
 
             return <div>
-                <div style={loadingStyle}>loading...</div>
+                <div style={loadingStyle}>loading account...</div>
                 <div ref="content" style={contentStyle}>{this.props.children}</div>
             </div>;
         }

@@ -1,7 +1,6 @@
 // entry point
-define(['./components/test', './components/message'], function(Test, Message) {
+define(['./components/account'], function(Account) {
     return {
-        Test: Test,
-        Message: Message
+        Account: Account
     };
 });
