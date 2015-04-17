@@ -3,11 +3,13 @@
         <script src="lib/require.js"></script>
     </head>
     <body>
-        loading...
+        <div id="customer"></div>
+        <div id="account"></div>
     </body>
     <script>
         require(['lib/react', 'index-react'], function(React, Example) {
-            React.render(React.createElement(Example.Account, null), document.body);
+            React.render(React.createElement(Example.Customer, null), document.getElementById('customer'));
+            React.render(React.createElement(Example.Account, null), document.getElementById('account'));
         });
     </script>
 </html>

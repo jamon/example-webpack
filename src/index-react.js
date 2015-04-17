@@ -1,6 +1,7 @@
 // entry point
-define(['./components/account'], function(Account) {
+define(['./components/account/account', './components/customer/customer'], function(Account, Customer) {
     return {
-        Account: Account
+        Account: Account,
+        Customer: Customer
     };
 });
