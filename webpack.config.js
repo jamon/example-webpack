@@ -2,13 +2,14 @@ var webpack = require('webpack');
 var changeCase = require('change-case');
 var packageJson = JSON.parse(require('fs').readFileSync("./package.json"));
 var prefix = "chtr" + changeCase.ucFirst(packageJson.name);
+var query = "?prefix=" + prefix + "&angular=external%2Fangular&react=external%2Freact&ngReact=external%2FngReact";
 
 module.exports = {
     context: __dirname + '/src',
     entry: {
         index: "./index.js",
         "index-react": "props-loader!./index.json",
-        "index-angular": "../directive-loader/index.js?prefix=" + prefix + "!./index-angular.json"
+        "index-angular": "../directive-loader/index.js" + query + "!./index-angular.json"
     },
     output: {
         filename: "[name].js",
