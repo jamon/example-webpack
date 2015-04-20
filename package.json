@@ -15,6 +15,7 @@
     "http-proxy": "^1.10.1",
     "jsx-loader": "^0.13.1",
     "props-loader": "git://github.com/jamon/props-loader",
+    "react-loader": "git://github.com/huisenwu/react-loader.git",
     "react-tools": "^0.13.1",
     "serve-static": "^1.9.2",
     "webpack": "^1.8.4",

@@ -7,8 +7,8 @@ var query = "?prefix=" + prefix + "&angular=external%2Fangular&react=external%2F
 module.exports = {
     context: __dirname + '/src',
     entry: {
-        index: "./index.js",
-        "index-react": "props-loader!./index.json",
+        "index": "react-loader?react=external%2Freact!./index.json",
+        "index-react": "props-loader!./index-react.json",
         "index-angular": "directive-loader" + query + "!./index-angular.json"
     },
     output: {
