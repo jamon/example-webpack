@@ -9,7 +9,7 @@ module.exports = {
     entry: {
         index: "./index.js",
         "index-react": "props-loader!./index.json",
-        "index-angular": "../directive-loader/index.js" + query + "!./index-angular.json"
+        "index-angular": "directive-loader" + query + "!./index-angular.json"
     },
     output: {
         filename: "[name].js",
