@@ -24,7 +24,7 @@ define(['external/react', 'external/react-bootstrap'], function(React, BS) {
                     </BS.Row>
                 </BS.Col>
 
-            </BS.Row>
+            </BS.Row>;
 
         }
     });

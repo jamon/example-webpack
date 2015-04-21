@@ -1,5 +1,16 @@
 define(['external/react', 'external/react-bootstrap', './../loading', './header', '../../model/account'], function(React, BS, Loading, Header, AccountModel) {
-
+    var Input = React.createClass({
+        displayName: "account/account#Input",
+        render: function() {
+            return <BS.Input
+                        type='static'
+                        label={this.props.label}
+                        labelClassName='col-xs-6'
+                        wrapperClassName='col-xs-6'
+                        value={this.props.value}
+                    />;
+        }
+    });
     return React.createClass({
         displayName: 'account/account',
         getInitialState: function() {
@@ -51,12 +62,31 @@ define(['external/react', 'external/react-bootstrap', './../loading', './header'
         },
 
         componentDidMount: function() {
-            AccountModel.getAccount(function(response) {
+            AccountModel.on("accountUpdate", this.loadAccount.bind(this));
+            //console.log("account props (mount)", this.props);
+        },
+        componentDidUpdate: function() {
+            console.log("account props (update)", this.props);
+            if(this.props.accountNumber !== this.state.accountNumber) {
+                this.loadAccount();
+            }
+
+
+            //this.loadAccount(this.props.accountNumber);
+            //"1234567890123456"
+        },
+        loadAccount: function() {
+            console.log("loading account...");
+            AccountModel.getAccount(this.props.accountNumber).then(function(response) {
+                console.log("got", response.account);
                 var account = response.account;
                 this.setState({
-                    account : account
+                    account : account,
+                    accountNumber: this.props.accountNumber
                 });
-            }.bind(this));
+            }.bind(this)).catch(function(error) {
+                console.log("!!!", error);
+            });
         },
         render: function() {
             var loadingStyle = this.state.account.accountNumber === "" ? {backgroundColor: '#999999'} : null;
@@ -66,18 +96,18 @@ define(['external/react', 'external/react-bootstrap', './../loading', './header'
 
                     <BS.Row>
                         <BS.Col xs={6}>
-                            <BS.Input type='static' label='Name:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.customer.firstName + ' ' + this.state.account.customer.lastName}/>
-                            <BS.Input type='static' label='SSN:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.customer.ssn}/>
-                            <BS.Input type='static' label='Customer Type:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value='?'/>
-                            <BS.Input type='static' label='Employee:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.customer.employeeFlag ? 'Y' : 'N'}/>
-                            <BS.Input type='static' label='Status:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.status}/>
+                            <Input label="Name: " value={this.state.account.customer.firstName + ' ' + this.state.account.customer.lastName} />
+                            <Input label='SSN:' value={this.state.account.customer.ssn}/>
+                            <Input label='Customer Type:' value='?'/>
+                            <Input label='Employee:' value={this.state.account.customer.employeeFlag ? 'Y' : 'N'}/>
+                            <Input label='Status:' value={this.state.account.status}/>
                         </BS.Col>
                         <BS.Col xs={6}>
-                            <BS.Input type='static' label='Location ID:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.location.id}/>
-                            <BS.Input type='static' label='Routing Area:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.location.routingArea}/>
-                            <BS.Input type='static' label='PPV Limit:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.ppvLimit}/>
-                            <BS.Input type='static' label='Security Code:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.customer.securityCode}/>
-                            <BS.Input type='static' label='Bulk:' labelClassName='col-xs-6' wrapperClassName='col-xs-6' value={this.state.account.bulkFlag ? 'Y' : 'N'}/>
+                            <Input label='Location ID:' value={this.state.account.location.id}/>
+                            <Input label='Routing Area:' value={this.state.account.location.routingArea}/>
+                            <Input label='PPV Limit:' value={this.state.account.ppvLimit}/>
+                            <Input label='Security Code:' value={this.state.account.customer.securityCode}/>
+                            <Input label='Bulk:' value={this.state.account.bulkFlag ? 'Y' : 'N'}/>
                         </BS.Col>
                     </BS.Row>
 

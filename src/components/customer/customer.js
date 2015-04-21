@@ -1,7 +1,7 @@
 define(['external/react', 'external/react-bootstrap', './../loading', '../../model/account'], function(React, BS, Loading, AccountModel) {
 
     function clone(obj) {
-        if(obj == null || typeof(obj) != 'object')
+        if(obj === null || typeof obj  !== 'object')
             return obj;
 
         var temp = obj.constructor(); // changed
@@ -18,15 +18,14 @@ define(['external/react', 'external/react-bootstrap', './../loading', '../../mod
         displayName: 'account/customer',
 
         linkState: function(propertyName) {
-            console.log("props", this.props);
             return {
                 value: typeof this.props.valueLink.value === "undefined" ? undefined : this.props.valueLink.value[propertyName],
                 requestChange: function(e) {
                     var change = this.props.valueLink.value;
                     change[propertyName] = e;
-                    this.requestChange(change); // {email: "abcd@gmail.com"}
+                    this.props.valueLink.requestChange(change); // {email: "abcd@gmail.com"}
                 }.bind(this)
-            }
+            };
         },
         render: function() {
             return <div>
@@ -54,6 +53,12 @@ define(['external/react', 'external/react-bootstrap', './../loading', '../../mod
     return React.createClass({
         mixins: [React.addons.LinkedStateMixin],
         displayName: 'account/account',
+        propTypes: {
+            accountNumber: React.PropTypes.string.isRequired
+        },
+        getDefaultProps: function() {
+            return {accountNumber: "nothing"};
+        },
         getInitialState: function() {
             return {
                 account : {
@@ -101,35 +106,39 @@ define(['external/react', 'external/react-bootstrap', './../loading', '../../mod
                 }
             };
         },
-
         componentDidMount: function() {
-            AccountModel.getAccount(function(response) {
+            //console.log("customer props (mount)", this.props);
+            AccountModel.on("accountUpdate", this.loadAccount.bind(this));
+            //this.loadAccount();
+        },
+        componentDidUpdate: function() {
+            console.log("customer props (update)", this.props);
+            if(this.props.accountNumber !== this.state.accountNumber) {
+                this.loadAccount();
+            }
+        },
+        loadAccount: function() {
+            AccountModel.getAccount(this.props.accountNumber).then(function(response) {
                 var account = response.account;
                 this.setState({
                     account : account,
-                    customer: clone(account.customer)
+                    customer: clone(account.customer),
+                    accountNumber: this.props.accountNumber
                 });
-            }.bind(this));
+            }.bind(this)).catch(function(error) {
+                console.log(error);
+            });
         },
-
         cancelCustomer: function() {
-            this.setState({customer: clone(account.customer)});
+            this.setState({customer: clone(this.state.account.customer)});
         },
-
         saveCustomer: function() {
-            AccountModel.saveCustomer(this.state.account.accountNumber, this.state.customer, function(response) {
-                var account = response.account;
-                this.setState({
-                    account : account
-                });
-            }.bind(this));
+            AccountModel.saveCustomer(this.state.account.accountNumber, this.state.customer);
         },
-
         render: function() {
             var loadingStyle = this.state.account.accountNumber === "" ? {backgroundColor: '#999999'} : null;
 
             return <div style={loadingStyle}>
-
                 <BS.Row>
                     <BS.Col xs={4}>
                         <ServiceAddress {...this.state.account.location.serviceAddress} />
@@ -142,7 +151,6 @@ define(['external/react', 'external/react-bootstrap', './../loading', '../../mod
                         <BS.Button onClick={this.cancelCustomer}>Cancel</BS.Button>
                     </BS.Col>
                 </BS.Row>
-
             </div>;
         }
     });
