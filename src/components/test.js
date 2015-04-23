@@ -11,8 +11,11 @@ define(['external/react', './message', './loading', '../model/message'], functio
                 this.setState({message: response.message});
             }.bind(this));
         },
+        propTypes: {
+            propTest: React.PropTypes.func
+        },
         render: function() {
-            return <div>
+            return <div onClick={this.props.propTest}>
                 <h1>Hello World</h1>
                 <Loading loading={this.state.message === null}>
                     <Message message={this.state.message} />
