@@ -1,7 +1,14 @@
-define(['external/react', 'external/angular',  './components/test', 'external/ngReact'], function(React, angular, Test) {
-    var module = angular.module('exampleApplication', ['react']);
-    module.value('Example', Test);
-    module.directive('example', ['reactDirective', function(reactDirective) {
-        return reactDirective('Example', []);
-    }]);
+define(['external/react', './components/test'], function(React, Test) {
+    return {
+        Component: Test,
+        render: function(props, target) {
+            React.render(React.createElement(Test, props), target);
+        },
+        registerDirective: function(app, name) {
+            app.value('TestComponent', Test)
+                .directive(name, ['reactDirective', function(reactDirective) {
+                    return reactDirective('TestComponent');
+                }]);
+        }
+    };
 });
