@@ -8,7 +8,7 @@ module.exports = {
     entry: {
         "index": "react-loader?react=external%2Freact!./index.json",
         "index-react": "props-loader!./index-react.json",
-        "index-angular": "../directive-loader/index.js?prefix=" + prefix + "&react=external%2Freact!./index-angular.json"
+        "index-angular": "directive-loader?prefix=" + prefix + "&react=external%2Freact!./index-angular.json"
     },
     output: {
         filename: "[name].js",
